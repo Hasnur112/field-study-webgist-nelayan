@@ -399,7 +399,7 @@
                         <span class="card-date">{{ $laporan->created_at->diffForHumans() }}</span>
                     </div>
                     <p class="card-desc">
-                        <b>Oleh:</b> {{ $laporan->nama_pelapor }} <br>
+                        <b>Oleh:</b> {{ $laporan->user ? $laporan->user->name : 'Nelayan Anonim' }} <br>
                         {{ $laporan->keterangan ? $laporan->keterangan : 'Tidak ada keterangan tambahan.' }}
                     </p>
                 </div>
@@ -416,9 +416,15 @@
 
     <!-- Floating Action Button (FAB) Tengah Bawah -->
     <div class="fab-wrapper">
-        <button class="fab-btn" onclick="toggleBottomSheet()">
-            <span>📍 Lapor Zona Baru</span>
-        </button>
+        @auth
+            <button class="fab-btn" onclick="toggleBottomSheet()">
+                <span>📍 Tambah Laporan</span>
+            </button>
+        @else
+            <button class="fab-btn" onclick="window.location.href='/login'" style="background-color: #333;">
+                <span>🔒 Login untuk Menambah Laporan</span>
+            </button>
+        @endauth
     </div>
 
     <!-- Tombol Kompas Peta Utama -->
@@ -442,14 +448,9 @@
             <input type="hidden" id="lat" name="latitude" required>
             <input type="hidden" id="lng" name="longitude" required>
 
-            <button type="button" class="btn-location" onclick="getLocation()">📍 Gunakan Lokasi Saya Saat Ini</button>
+            <button type="button" class="btn-location" onclick="getLocation()">📍 Gunakan Lokasi Saat Ini</button>
             <div id="location-status" style="text-align: center; color: #28a745; font-weight: 700; margin-bottom: 15px; display: none;">
-                ✅ Lokasi Ditemukan! (Geser pin biru di peta jika posisi kurang pas)
-            </div>
-
-            <div class="form-group">
-                <label for="nama_pelapor">Nama Nelayan / Kapal:</label>
-                <input type="text" id="nama_pelapor" name="nama_pelapor" required placeholder="Contoh: Budi / KM. Bintang Laut">
+                ✅ Lokasi Berhasil Dideteksi! (Sesuaikan posisi marker jika diperlukan)
             </div>
 
             <div class="form-group">
@@ -528,7 +529,10 @@
 
             var popupContent = "<div style='font-family: Inter, sans-serif;'>";
             popupContent += "<b style='font-size: 16px;'>Zona " + zonaText + "</b><br>";
-            popupContent += "<small style='color: #0056b3; font-weight: bold;'>Oleh: " + laporan.nama_pelapor + "</small><br>";
+            
+            // Nama diambil dari relasi User
+            var namaPelapor = laporan.user ? laporan.user.name : 'Nelayan Anonim';
+            popupContent += "<small style='color: #0056b3; font-weight: bold;'>Oleh: " + namaPelapor + "</small><br>";
             
             // Format Waktu
             var waktu = new Date(laporan.created_at).toLocaleString('id-ID', {day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit'});
@@ -617,7 +621,7 @@
             document.getElementById("lat").value = lat;
             document.getElementById("lng").value = lng;
             
-            btnLocation.innerText = "📍 Update Lokasi Sekali Lagi (Jika Perlu)";
+            btnLocation.innerText = "📍 Perbarui Lokasi";
             document.getElementById("location-status").style.display = "block";
             
             map.flyTo([lat, lng], 15, {

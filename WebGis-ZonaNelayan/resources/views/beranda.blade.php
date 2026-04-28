@@ -39,6 +39,26 @@
             align-items: center;
             gap: 10px;
         }
+        .nav-auth a {
+            text-decoration: none;
+            color: #0056b3;
+            font-weight: 600;
+            margin-left: 10px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+        .nav-auth a.btn-login {
+            background-color: #eef5ff;
+        }
+        .nav-auth a.btn-register {
+            background-color: #0056b3;
+            color: white;
+        }
+        .nav-auth a:hover {
+            opacity: 0.8;
+        }
 
         /* --- Hero Section --- */
         .hero {
@@ -151,6 +171,18 @@
     <!-- Navbar -->
     <nav class="navbar">
         <a href="/" class="nav-brand">🌊 WebGIS Nelayan</a>
+        <div class="nav-auth">
+            @if (Route::has('login'))
+                @auth
+                    <a href="{{ url('/dashboard') }}" class="btn-register">Dashboard Saya</a>
+                @else
+                    <a href="{{ route('login') }}" class="btn-login">Login</a>
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class="btn-register">Registrasi Pengguna</a>
+                    @endif
+                @endauth
+            @endif
+        </div>
     </nav>
 
     <!-- Hero Section -->
@@ -189,7 +221,7 @@
 
     <!-- Tentang Sistem -->
     <section class="about-section">
-        <h2>Dari Nelayan, Untuk Nelayan</h2>
+        <h2>Sistem Informasi Geospasial Partisipatif</h2>
         <p>
             Sistem WebGIS ini merubah data koordinat dari para pelaut di lapangan menjadi 
             visualisasi peta yang sangat mudah dipahami. Dengan saling berbagi informasi 
