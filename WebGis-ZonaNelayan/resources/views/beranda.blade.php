@@ -164,6 +164,63 @@
             .hero h1 { font-size: 32px; }
             .dashboard { grid-template-columns: 1fr 1fr; }
         }
+
+        @media (max-width: 640px) {
+            .navbar {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+            .nav-brand {
+                font-size: 20px;
+            }
+            .nav-auth {
+                display: flex;
+                gap: 8px;
+                width: 100%;
+                justify-content: center;
+            }
+            .nav-auth a {
+                margin-left: 0;
+                padding: 6px 12px;
+                font-size: 12px;
+                flex: 1;
+                max-width: 160px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 50px 15px;
+            }
+            .hero h1 {
+                font-size: 26px;
+            }
+            .hero p {
+                font-size: 14px;
+                margin-bottom: 25px;
+            }
+            .btn-cta {
+                padding: 14px 28px;
+                font-size: 15px;
+            }
+            .dashboard {
+                grid-template-columns: 1fr;
+                margin-top: -20px;
+                gap: 15px;
+            }
+            .stat-card {
+                padding: 20px 15px;
+            }
+            .stat-number {
+                font-size: 28px;
+            }
+            .stat-label {
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>

@@ -122,6 +122,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 5px;
         }
         .badge {
             padding: 4px 8px;
@@ -231,6 +233,8 @@
             z-index: 1501;
             transition: bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+            max-height: 90%;
+            overflow-y: auto;
         }
         .bottom-sheet.active {
             bottom: 0;
@@ -354,6 +358,53 @@
             border: 1px solid #f5c6cb;
             display: none;
             font-weight: 600;
+        }
+
+        /* --- Media Queries untuk Responsivitas Mobile --- */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 15px;
+            }
+            .nav-title {
+                font-size: 16px;
+            }
+            .nav-btn {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+            .sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            .sidebar.active {
+                right: 0;
+            }
+            .compass-btn {
+                bottom: 90px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+            }
+            .fab-btn {
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+        }
+        
+        /* Desktop Bottom Sheet Floating Style */
+        @media (min-width: 768px) {
+            .bottom-sheet {
+                max-width: 500px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-radius: 20px;
+                bottom: -100%;
+            }
+            .bottom-sheet.active {
+                bottom: 30px;
+                transform: translateX(-50%);
+            }
         }
     </style>
 </head>
@@ -571,7 +622,7 @@
             "🟡 Zona Rawan": zonaRawanLayer,
             "🔴 Zona Larangan": zonaLaranganLayer
         };
-        L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
+        L.control.layers(baseMaps, overlayMaps, { collapsed: window.innerWidth < 768 }).addTo(map);
 
         // --- Fitur Navbar & Sidebar ---
         function toggleSidebar() {
