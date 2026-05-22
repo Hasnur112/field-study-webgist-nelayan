@@ -26,8 +26,12 @@
                 
                 <!-- Mobile Top Header -->
                 <header class="lg:hidden bg-white border-b border-slate-100 flex items-center justify-between px-4 h-16 shrink-0">
-                    <div class="flex items-center gap-2">
-                        <span class="text-2xl">🌊</span>
+                    <div class="flex items-center gap-2.5">
+                        <div class="bg-blue-600 p-1.5 rounded-lg text-white">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18m-9-8v12M3 6h18m-9 0v12"></path>
+                            </svg>
+                        </div>
                         <span class="font-black text-lg tracking-tight">WebGIS <span class="text-blue-600">Nelayan</span></span>
                     </div>
                     <button @click="sidebarOpen = true" class="p-2 rounded-xl bg-slate-50 text-slate-600">
